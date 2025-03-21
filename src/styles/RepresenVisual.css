@@ -1,0 +1,11 @@
+.represen-visual-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .represen-visual-title {
+    font-size: 28px;
+    color: #007bff;
+    text-align: center;
+  }

@@ -1,0 +1,18 @@
+body {
+    background-color: #f8f9fa; /* Soft grayish background */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Center the content and give it a slight shadow */
+  .unidad-mediciones-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .unidad-mediciones-title {
+    font-size: 28px;
+    color: #007bff;
+    text-align: center;
+  }
+  

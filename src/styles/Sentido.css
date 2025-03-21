@@ -1,0 +1,11 @@
+.sentido-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .sentido-title {
+    font-size: 28px;
+    color: #007bff;
+    text-align: center;
+  }

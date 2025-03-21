@@ -1,0 +1,146 @@
+body {
+  background-color: #f8f9fa; /* Soft grayish background */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Center the content and give it a slight shadow */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #007bff; /* 🔵 Nice blue */
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 3px solid #007bff; /* 🔵 Stylish underline */
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+/* Improve list styling */
+.list {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f3f5;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  background: #e9ecef;
+}
+
+button {
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.input-field {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #007bff; /* 🔵 Blue border */
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-button {
+  background-color: #28a745; /* ✅ Green */
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.add-button:hover {
+  background-color: #218838; /* 🔥 Darker green on hover */
+  transform: scale(1.05); /* 🔥 Slight pop effect */
+}
+/* Botón Editar */
+.edit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+.save-button {
+  background-color: #28a745; /* Verde */
+  color: white;
+  padding: 8px 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #218838; /* Verde más oscuro al pasar el mouse */
+}
+
+/* Botón Eliminar */
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #b02a37;
+}
+
+/* Botón Volver */
+.back-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-group {
+  display: flex;
+  gap: 5px; /* Reduce spacing */
+}
+
+.edit-group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
