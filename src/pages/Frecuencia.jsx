@@ -78,7 +78,7 @@ const Frecuencia = () => {
       await deleteEntity(nombreTabla, id);
       cargarFrecuencias();
     } catch (error) {
-      console.error("❌ Error al eliminar:", error);
+      console.error("❌ Error al eliminar el registro:", error);
     }
   };
 
