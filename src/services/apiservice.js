@@ -3,20 +3,33 @@ const BASE_URL = "http://localhost:5266/api/proyecto";
 // ✅ GET: Get all entities from a specific table dynamically
 export const getAllEntities = async (nombreTabla) => {
   try {
-    const response = await fetch(`http://localhost:5266/api/proyecto/${nombreTabla}`); // 📌 URL dinámica
+    const response = await fetch(`http://localhost:5266/api/proyecto/${nombreTabla}`);
 
     if (!response.ok) {
-      throw new Error(`❌ Error al obtener entidades: ${response.status}`);
+      const text = await response.text();
+      throw new Error(`❌ Error al obtener entidades (${response.status}): ${text}`);
     }
 
     const responseText = await response.text();
-    return responseText.startsWith("{") ? JSON.parse(responseText) : { message: responseText };
 
+    try {
+      const parsed = JSON.parse(responseText);
+      return Array.isArray(parsed)
+        ? parsed
+        : parsed?.message?.startsWith("[")
+        ? JSON.parse(parsed.message)
+        : [];
+    } catch {
+      console.warn("⚠️ No se pudo parsear JSON:", responseText);
+      return [];
+    }
   } catch (error) {
-    console.error("❌ Error en la solicitud GET:", error);
-    throw error;
+    console.error("❌ Error en la solicitud GET:", error.message);
+    return [];
   }
 };
+
+
 
 // ✅ POST: Create a new entity in a table
 export const createEntity = async (nombreTabla, datosEntidad) => {

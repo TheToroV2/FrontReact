@@ -86,7 +86,7 @@ const TipoIndicador = () => {
     <div className="container">
       <h2 className="title">Tipo Indicador</h2>
 
-      {/* ✅ Input para nuevo tipo */}
+      {/* Input para nuevo tipo */}
       <div>
       <input
   type="text"

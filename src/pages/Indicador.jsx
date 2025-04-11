@@ -8,11 +8,16 @@ const Indicador = () => {
   const [newData, setNewData] = useState({
     codigo: "",
     nombre: "",
+    objetivo: "",
+    alcance: "",
+    formula: "",
     fkidtipoindicador: "",
     fkidunidadmedicion: "",
+    meta: "",
     fkidsentido: "",
     fkidfrecuencia: ""
   });
+  
   const [editId, setEditId] = useState(null);
   const [editData, setEditData] = useState({});
   const [relaciones, setRelaciones] = useState({
@@ -62,7 +67,14 @@ const Indicador = () => {
   const handleCreate = async () => {
     try {
       await createEntity(tabla, newData);
-      setNewData({ codigo: "", nombre: "", fkidtipoindicador: "", fkidunidadmedicion: "", fkidsentido: "", fkidfrecuencia: "" });
+      setNewData({
+        codigo: "",
+        nombre: "",
+        fkidtipoindicador: "",
+        fkidunidadmedicion: "",
+        fkidsentido: "",
+        fkidfrecuencia: ""
+      });
       fetchData();
     } catch (error) {
       console.error("❌ No se pudo crear:", error);
