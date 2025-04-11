@@ -7,7 +7,7 @@ import {
   getEntityByKey
 } from "../services/apiservice";
 import { useNavigate } from "react-router-dom";
-import "../styles/ResultadoIndicador.css";
+import "../styles/BasicStyles.css";
 
 const ResultadoIndicador = () => {
   const navigate = useNavigate();

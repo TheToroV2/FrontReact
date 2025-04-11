@@ -6,7 +6,7 @@ import {
   deleteEntity
 } from "../services/apiservice";
 import { useNavigate } from "react-router-dom";
-import "../styles/VariablesPorIndicador.css";
+import "../styles/BasicStyles.css";
 
 const VariablesPorIndicador = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiservice";
-import "../styles/TipoIndicador.css";
+import "../styles/BasicStyles.css";
 import { useNavigate } from "react-router-dom";
 
 const TipoIndicador = () => {

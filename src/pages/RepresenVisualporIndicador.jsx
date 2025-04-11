@@ -6,7 +6,7 @@ import {
   deleteEntity
 } from "../services/apiservice";
 import { useNavigate } from "react-router-dom";
-import "../styles/RelacionBase.css";
+import "../styles/BasicStyles.css";
 
 const RepresenVisualPorIndicador = () => {
   const navigate = useNavigate();

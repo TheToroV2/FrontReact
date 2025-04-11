@@ -6,7 +6,7 @@ import {
   deleteEntity
 } from "../services/apiservice";
 import { useNavigate } from "react-router-dom";
-import "../styles/EntidadBase.css";
+import "../styles/BasicStyles.css";
 
 const Actor = () => {
   const navigate = useNavigate();
