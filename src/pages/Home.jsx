@@ -8,7 +8,15 @@ const navLinks = [
   { path: "/fuente", label: "Fuente" },
   { path: "/represenvisual", label: "Representación Visual" },
   { path: "/tipoactor", label: "Tipo Actor" },
-  { path: "/frecuencia", label: "Frecuencia" }
+  { path: "/frecuencia", label: "Frecuencia" },
+  { path: "/actor", label: "Actor" },
+  { path: "/variable", label: "Variable" },
+  { path: "/indicador", label: "Indicador" },
+  { path: "/fuentesporindicador", label: "Fuentes por Indicador" },
+  { path: "/variablesporindicador", label: "Variables por indicador" },
+  { path: "/represenvisualporindicador", label: "Representacion Visual  por Indicador" },
+  { path: "/resultadoindicador", label: "Resultado Indicador" }
+
 ];
 
 const NavButton = ({ path, label }) => (

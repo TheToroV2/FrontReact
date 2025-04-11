@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiService";
+import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiservice";
 import { useNavigate } from "react-router-dom";
 import "../styles/Fuente.css";
 

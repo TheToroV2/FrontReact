@@ -7,6 +7,7 @@ import Fuente from "./pages/Fuente";
 import RepresenVisual from "./pages/RepresenVisual";
 import TipoActor from "./pages/TipoActor";
 import Frecuencia from "./pages/Frecuencia";
+import Variable from "./pages/Variable";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
         <Route path="/represenvisual" element={<RepresenVisual />} />
         <Route path="/tipoactor" element={<TipoActor />} />
         <Route path="/frecuencia" element={<Frecuencia />} />
+        <Route path="/actor" element={<Actor />} />
+        <Route path="/variable" element={<Variable />} />
+        <Route path="/indicador" element={<Indicador />} />
+        <Route path="/fuentesporindicador" element={<FuentesPorIndicador />} />
+        <Route path="/variablesporindicador" element={<VariablesPorIndicador />} />
+        <Route path="/resultadoindicador" element={<ResultadoIndicador />} />
+        <Route path="/represenvisualporindicador" element={<RepresenVisualPorIndicador />} />
+        <Route path="/variable" element={<Variable />} />
         
       </Routes>
     </BrowserRouter>

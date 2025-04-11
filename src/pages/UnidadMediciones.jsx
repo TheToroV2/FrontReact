@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiService";
+import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiservice";
 import "../styles/Unidadmediciones.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 const UnidadMediciones = () => {
   const navigate = useNavigate();
