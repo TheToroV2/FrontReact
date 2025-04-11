@@ -7,6 +7,7 @@ import Fuente from "./pages/Fuente";
 import RepresenVisual from "./pages/RepresenVisual";
 import TipoActor from "./pages/TipoActor";
 import Frecuencia from "./pages/Frecuencia";
+import Indicador from "./pages/Indicador";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path="/represenvisual" element={<RepresenVisual />} />
         <Route path="/tipoactor" element={<TipoActor />} />
         <Route path="/frecuencia" element={<Frecuencia />} />
-        
+        <Route path="/indicador" element={<Indicador/>} />
       </Routes>
     </BrowserRouter>
   );
