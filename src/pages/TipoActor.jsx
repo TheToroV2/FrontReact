@@ -16,18 +16,13 @@ const TipoActor = () => {
     try {
       const data = await getAllEntities(nombreTabla);
       console.log("📢 API Response:", data);
-
-      const parsedData = data?.message && typeof data.message === "string"
-        ? JSON.parse(data.message)
-        : [];
-
-      setTipoActores(Array.isArray(parsedData) ? parsedData : []);
+  
+      setTipoActores(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("❌ Error al cargar datos:", error);
       setTipoActores([]);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);

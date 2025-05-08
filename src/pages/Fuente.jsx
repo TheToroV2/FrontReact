@@ -16,12 +16,8 @@ const Fuente = () => {
     try {
       const data = await getAllEntities(nombreTabla);
       console.log("📢 API Response:", data);
-
-      const parsedData = data?.message && typeof data.message === "string"
-        ? JSON.parse(data.message)
-        : [];
-
-      setFuentes(Array.isArray(parsedData) ? parsedData : []);
+  
+      setFuentes(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("❌ Error al cargar datos:", error);
       setFuentes([]);

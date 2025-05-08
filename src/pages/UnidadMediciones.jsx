@@ -16,12 +16,8 @@ const UnidadMediciones = () => {
     try {
       const data = await getAllEntities(nombreTabla);
       console.log("📢 API Response:", data);
-
-      const parsedData = data?.message && typeof data.message === "string" 
-        ? JSON.parse(data.message) 
-        : [];
-
-      setUnidadMediciones(Array.isArray(parsedData) ? parsedData : []);
+  
+      setUnidadMediciones(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("❌ Error al cargar datos:", error);
       setUnidadMediciones([]);

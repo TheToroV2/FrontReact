@@ -16,12 +16,8 @@ const TipoIndicador = () => {
     try {
       const data = await getAllEntities(nombreTabla);
       console.log("📢 API Response:", data);
-
-      const parsedData = data && typeof data.message === "string" 
-        ? JSON.parse(data.message) 
-        : [];
-
-      setTipoIndicadores(Array.isArray(parsedData) ? parsedData : []);
+  
+      setTipoIndicadores(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("❌ Error al cargar datos:", error);
       setTipoIndicadores([]);

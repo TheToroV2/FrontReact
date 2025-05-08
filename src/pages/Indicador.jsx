@@ -1,53 +1,36 @@
 import { useEffect, useState } from "react";
 import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
+import SelectField from "../components/SelectField";
+import "../Styles/Indicador.css"
 
 const Indicador = () => {
   const navigate = useNavigate();
   const [indicadores, setIndicadores] = useState([]);
-  const [newData, setNewData] = useState({
-    codigo: "",
-    nombre: "",
-    objetivo: "",
-    alcance: "",
-    formula: "",
-    fkidtipoindicador: "",
-    fkidunidadmedicion: "",
-    meta: "",
-    fkidsentido: "",
-    fkidfrecuencia: ""
-  });
-  
-  const [editId, setEditId] = useState(null);
-  const [editData, setEditData] = useState({});
-  const [relaciones, setRelaciones] = useState({
-    tipos: [],
-    unidades: [],
-    sentidos: [],
-    frecuencias: []
-  });
+  const [unidadMediciones, setUnidadMediciones] = useState([]);
 
-  const tabla = "indicador";
+  const [newNombre, setNewNombre] = useState("");
+  const [newDescripcion, setNewDescripcion] = useState("");
+  const [newUnidadMedicionId, setNewUnidadMedicionId] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const nombreTabla = "indicador";
 
   const fetchData = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const [indics, tipos, unidades, sentidos, frecuencias] = await Promise.all([
-        getAllEntities(tabla),
-        getAllEntities("tipoindicador"),
-        getAllEntities("unidadmedicion"),
-        getAllEntities("sentido"),
-        getAllEntities("frecuencia")
-      ]);
-
-      setIndicadores(indics || []);
-      setRelaciones({
-        tipos: tipos || [],
-        unidades: unidades || [],
-        sentidos: sentidos || [],
-        frecuencias: frecuencias || []
-      });
-    } catch (error) {
-      console.error("❌ Error al cargar datos:", error);
+      const data = await getAllEntities(nombreTabla);
+      setIndicadores(Array.isArray(data) ? data : []);
+      const unidades = await getAllEntities("unidadmedicion");
+      setUnidadMediciones(Array.isArray(unidades) ? unidades : []);
+    } catch (err) {
+      console.error(err);
+      setError("❌ Error al cargar los datos.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,125 +38,60 @@ const Indicador = () => {
     fetchData();
   }, []);
 
-  const handleChange = (e, edit = false) => {
-    const { name, value } = e.target;
-    if (edit) {
-      setEditData(prev => ({ ...prev, [name]: value }));
-    } else {
-      setNewData(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
   const handleCreate = async () => {
-    try {
-      await createEntity(tabla, newData);
-      setNewData({
-        codigo: "",
-        nombre: "",
-        fkidtipoindicador: "",
-        fkidunidadmedicion: "",
-        fkidsentido: "",
-        fkidfrecuencia: ""
-      });
-      fetchData();
-    } catch (error) {
-      console.error("❌ No se pudo crear:", error);
+    if (!newNombre.trim() || !newUnidadMedicionId) {
+      alert("❌ Faltan campos obligatorios.");
+      return;
     }
-  };
 
-  const handleUpdate = async (id) => {
-    try {
-      await updateEntity(tabla, id, editData);
-      setEditId(null);
-      setEditData({});
-      fetchData();
-    } catch (error) {
-      console.error("❌ Error al actualizar:", error);
-    }
-  };
+    const nuevoIndicador = {
+      nombre: newNombre,
+      descripcion: newDescripcion,
+      fkidunidadmedicion: parseInt(newUnidadMedicionId),
+    };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("¿Eliminar este indicador?")) return;
-    try {
-      await deleteEntity(tabla, id);
-      fetchData();
-    } catch (error) {
-      console.error("❌ Error al eliminar:", error);
-    }
+    await createEntity(nombreTabla, nuevoIndicador);
+    setNewNombre("");
+    setNewDescripcion("");
+    setNewUnidadMedicionId("");
+    fetchData();
   };
 
   return (
-    <div>
-      <h2>Indicadores</h2>
+    <div className="indicador-container">
+      <h2>Indicador</h2>
 
-      {/* ➕ Crear */}
-      <div>
-        <input name="codigo" placeholder="Código" value={newData.codigo} onChange={handleChange} />
-        <input name="nombre" placeholder="Nombre" value={newData.nombre} onChange={handleChange} />
+      <input
+        type="text"
+        placeholder="Nombre del indicador"
+        value={newNombre}
+        onChange={(e) => setNewNombre(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Descripción"
+        value={newDescripcion}
+        onChange={(e) => setNewDescripcion(e.target.value)}
+      />
+      <SelectField
+        label="Unidad de Medición"
+        value={newUnidadMedicionId}
+        options={unidadMediciones}
+        onChange={setNewUnidadMedicionId}
+      />
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <select name="fkidtipoindicador" value={newData.fkidtipoindicador} onChange={handleChange}>
-          <option value="">Tipo Indicador</option>
-          {relaciones.tipos.map(t => (
-            <option key={t.id} value={t.id}>{t.nombre}</option>
-          ))}
-        </select>
+      <button onClick={handleCreate}>➕ Agregar</button>
 
-        <select name="fkidunidadmedicion" value={newData.fkidunidadmedicion} onChange={handleChange}>
-          <option value="">Unidad Medición</option>
-          {relaciones.unidades.map(u => (
-            <option key={u.id} value={u.id}>{u.descripcion}</option>
-          ))}
-        </select>
-
-        <select name="fkidsentido" value={newData.fkidsentido} onChange={handleChange}>
-          <option value="">Sentido</option>
-          {relaciones.sentidos.map(s => (
-            <option key={s.id} value={s.id}>{s.descripcion || s.nombre}</option>
-          ))}
-        </select>
-
-        <select name="fkidfrecuencia" value={newData.fkidfrecuencia} onChange={handleChange}>
-          <option value="">Frecuencia</option>
-          {relaciones.frecuencias.map(f => (
-            <option key={f.id} value={f.id}>{f.descripcion || f.nombre}</option>
-          ))}
-        </select>
-
-        <button onClick={handleCreate}>Agregar</button>
-      </div>
-
-      {/* 📋 Lista */}
       <ul>
-        {indicadores.map(i => (
-          <li key={i.id}>
-            {editId === i.id ? (
-              <>
-                <input name="codigo" value={editData.codigo || ""} onChange={(e) => handleChange(e, true)} />
-                <input name="nombre" value={editData.nombre || ""} onChange={(e) => handleChange(e, true)} />
-                <button onClick={() => handleUpdate(i.id)}>Guardar</button>
-                <button onClick={() => setEditId(null)}>Cancelar</button>
-              </>
-            ) : (
-              <>
-                <strong>{i.codigo}</strong> - {i.nombre}
-                <div>
-                  Tipo: {relaciones.tipos.find(t => t.id === i.fkidtipoindicador)?.nombre || 'N/A'} | 
-                  Unidad: {relaciones.unidades.find(u => u.id === i.fkidunidadmedicion)?.descripcion || 'N/A'} | 
-                  Sentido: {relaciones.sentidos.find(s => s.id === i.fkidsentido)?.descripcion || 'N/A'} | 
-                  Frecuencia: {relaciones.frecuencias.find(f => f.id === i.fkidfrecuencia)?.descripcion || 'N/A'}
-                </div>
-                <button onClick={() => { setEditId(i.id); setEditData(i); }}>Editar</button>
-                <button onClick={() => handleDelete(i.id)}>Eliminar</button>
-              </>
-            )}
-          </li>
+        {indicadores.map((item) => (
+          <li key={item.id}>{item.nombre} - {item.descripcion}</li>
         ))}
       </ul>
 
-      <button onClick={() => navigate("/")}>Volver al inicio</button>
+      <button onClick={() => navigate("/")}>⬅️ Volver a Inicio</button>
     </div>
   );
 };
 
 export default Indicador;
-

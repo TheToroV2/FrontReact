@@ -15,15 +15,11 @@ const RepresenVisual = () => {
   const fetchData = async () => {
     try {
       const data = await getAllEntities(nombreTabla);
-      console.log("\ud83d\udce2 API Response:", data);
-
-      const parsedData = data && typeof data.message === "string" 
-        ? JSON.parse(data.message) 
-        : [];
-
-      setRepresenVisuals(Array.isArray(parsedData) ? parsedData : []);
+      console.log("📢 API Response:", data);
+  
+      setRepresenVisuals(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("\u274c Error al cargar datos:", error);
+      console.error("❌ Error al cargar datos:", error);
       setRepresenVisuals([]);
     }
   };

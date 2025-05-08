@@ -16,12 +16,8 @@ const Sentido = () => {
     try {
       const data = await getAllEntities(nombreTabla);
       console.log("📢 API Response:", data);
-
-      const parsedData = data?.message && typeof data.message === "string"
-        ? JSON.parse(data.message)
-        : [];
-
-      setSentidos(Array.isArray(parsedData) ? parsedData : []);
+  
+      setSentidos(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("❌ Error al cargar datos:", error);
       setSentidos([]);

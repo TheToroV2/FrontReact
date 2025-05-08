@@ -9,7 +9,8 @@ const navLinks = [
   { path: "/represenvisual", label: "Representación Visual" },
   { path: "/tipoactor", label: "Tipo Actor" },
   { path: "/frecuencia", label: "Frecuencia" },
-  { path: "/indicador", label: "Indicador"}
+  { path: "/indicador", label: "Indicador"},
+  { path: "/ProyectoIndicador", label: "ProyectoIndicador"}
 ];
 
 const NavButton = ({ path, label }) => (

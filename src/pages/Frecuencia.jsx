@@ -12,16 +12,12 @@ const Frecuencia = () => {
 
   const nombreTabla = "frecuencia";
 
-  const cargarFrecuencias = async () => {
+  const fetchData = async () => {
     try {
       const data = await getAllEntities(nombreTabla);
       console.log("📢 API Response:", data);
-
-      const parsedData = data?.message && typeof data.message === "string"
-        ? JSON.parse(data.message)
-        : [];
-
-      setFrecuencias(Array.isArray(parsedData) ? parsedData : []);
+  
+      setFrecuencias(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("❌ Error al cargar datos:", error);
       setFrecuencias([]);
@@ -29,7 +25,7 @@ const Frecuencia = () => {
   };
 
   useEffect(() => {
-    cargarFrecuencias();
+    fetchData();
   }, []);
 
   const crearFrecuencia = async () => {
