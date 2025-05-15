@@ -1,5 +1,8 @@
+import React, { useContext } from "react";  // Agregar useContext aquí
 import { Link } from "react-router-dom";
-import "../styles/Home.css";
+import { AuthContext } from "./Login/AuthContext";  // Asegúrate de que la ruta sea correcta
+import "../styles/Home.css"; // O donde sea que tengas tus estilos
+
 
 const navLinks = [
   { path: "/tipoindicador", label: "Tipo Indicadores" },
@@ -9,8 +12,10 @@ const navLinks = [
   { path: "/represenvisual", label: "Representación Visual" },
   { path: "/tipoactor", label: "Tipo Actor" },
   { path: "/frecuencia", label: "Frecuencia" },
-  { path: "/indicador", label: "Indicador"},
-  { path: "/ProyectoIndicador", label: "ProyectoIndicador"}
+  { path: "/indicador", label: "Indicador" },
+  { path: "/ProyectoIndicador", label: "ProyectoIndicador" },
+  { path: "/Seccion", label: "Seccion" },
+  { path: "/Articulo", label: "Articulo" },
 ];
 
 const NavButton = ({ path, label }) => (
@@ -20,6 +25,14 @@ const NavButton = ({ path, label }) => (
 );
 
 const Home = () => {
+  const { roles } = useContext(AuthContext);
+  
+  const isAdmin = roles && roles.includes("admin");
+  const isInvitado = roles && roles.includes("invitado");
+  const isValidador = roles && roles.includes("Validador");
+
+  const prefix = isAdmin ? "/admin" : isValidador ? "/validador" : isInvitado ? "/invitado" : "";
+
   return (
     <div className="home-container">
       <h1>Base de Datos de Indicadores</h1>
@@ -27,11 +40,11 @@ const Home = () => {
 
       <div className="button-container">
         {navLinks.map(({ path, label }) => (
-          <NavButton key={path} path={path} label={label} />
+          <NavButton key={path} path={`${prefix}${path}`} label={label} />
         ))}
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Home;  // Aquí está la exportación

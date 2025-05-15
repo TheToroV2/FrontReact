@@ -110,3 +110,22 @@ export const deleteEntity = async (nombreTabla, id) => {
     throw error;
   }
 };
+
+export const ejecutarConsultaParametrizada = async (tabla, consulta, parametros = {}) => {
+  const response = await fetch(`http://localhost:5266/api/proyecto/${tabla}/ejecutar-consulta-parametrizada`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ consulta, parametros })
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();  // Obtener el cuerpo de la respuesta de error
+    throw new Error(`Error ejecutando consulta parametrizada: ${errorData.mensaje || errorData.error}`);
+  }
+
+  return await response.json();
+};
+
+

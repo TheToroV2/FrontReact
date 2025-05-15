@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
-import { getAllEntities, createEntity, updateEntity, deleteEntity } from "../services/apiService";
+import { getAllEntities, createEntity, updateEntity} from "../services/apiService";
 import { useNavigate } from "react-router-dom";
 import SelectField from "../components/SelectField";
 import "../Styles/Indicador.css"
 
 const Indicador = () => {
   const navigate = useNavigate();
-  const [indicadores, setIndicadores] = useState([]);
+  const [indicador, setIndicador] = useState([]);
+  const [tipoindicador, setTipoindicador] = useState([]);
   const [unidadMediciones, setUnidadMediciones] = useState([]);
+  const [sentido, setSentido] = useState([]);
+  const [frecuencias, setFrecuencias] = useState([]);
+  const [articulo, setArticulo] = useState([]);
+  const [literal, setLiteral] = useState([]);
+  const [numeral, setNumeral] = useState([]);
+  const [paragrafo, setParagrafo] = useState([]);
+
 
   const [newNombre, setNewNombre] = useState("");
-  const [newDescripcion, setNewDescripcion] = useState("");
-  const [newUnidadMedicionId, setNewUnidadMedicionId] = useState("");
+  const [newCodigo, setNewCodigo] = useState("");
+  const [newObjetivo, setNewObjetivo] = useState("");
+  const [newAlcance, setNewAlcance] = useState("");
+  const [newFormula, setNewFormula] = useState("");
+  const [newMeta, setNewMeta] = useState("");
 
+
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,8 +37,6 @@ const Indicador = () => {
     try {
       const data = await getAllEntities(nombreTabla);
       setIndicadores(Array.isArray(data) ? data : []);
-      const unidades = await getAllEntities("unidadmedicion");
-      setUnidadMediciones(Array.isArray(unidades) ? unidades : []);
     } catch (err) {
       console.error(err);
       setError("❌ Error al cargar los datos.");
@@ -35,7 +46,19 @@ const Indicador = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    const fetchSentido = async () => {
+      const data = await getAllEntities("sentido");
+      setSentido(data);
+    };
+    fetchSentido();
+  }, []);
+
+  useEffect(() => {
+    const fetchUnidadMediciones = async () => {
+      const data = await getAllEntities("unidadmedicion");
+      setUnidadMediciones(data);
+    };
+    fetchUnidadMediciones();
   }, []);
 
   const handleCreate = async () => {
@@ -73,6 +96,15 @@ const Indicador = () => {
         value={newDescripcion}
         onChange={(e) => setNewDescripcion(e.target.value)}
       />
+      <select
+  value={indicador.fkidsentido}
+  onChange={(e) => setIndicador({ ...indicador, fkidsentido: parseInt(e.target.value) })}
+>
+  <option value="">-- Selecciona un sentido --</option>
+  {sentidos.map(s => (
+    <option key={s.id} value={s.id}>{s.nombre}</option>
+  ))}
+</select>
       <SelectField
         label="Unidad de Medición"
         value={newUnidadMedicionId}
@@ -88,6 +120,7 @@ const Indicador = () => {
           <li key={item.id}>{item.nombre} - {item.descripcion}</li>
         ))}
       </ul>
+      
 
       <button onClick={() => navigate("/")}>⬅️ Volver a Inicio</button>
     </div>
